@@ -1,0 +1,16 @@
+FAMILY STAR BANK - SETUP
+
+1. Firebase Console > Build > Authentication > Sign-in method > Google > Enable.
+2. Firebase Console > Build > Firestore Database > Create database. Use production mode, select a region.
+3. Firestore Database > Rules: paste firestore.rules contents, change BOTH placeholder emails to the Google accounts you will use (exact case), and Publish. Never use "allow read, write: if true".
+4. Firebase Authentication > Settings > Authorized domains: add YOUR-USERNAME.github.io (domain only, no https:// and no /family-star-bank).
+5. GitHub repo > Add file > Upload files: upload index.html, manifest.webmanifest, service-worker.js, icon-192.png, icon-512.png to the repository root. Do NOT upload SETUP.txt or firestore.rules (they are just instructions for Firebase console).
+6. GitHub repo > Settings > Pages > Deploy from branch > main, /(root) > Save.
+7. Open https://YOUR-USERNAME.github.io/family-star-bank/ and sign in using an allowed Google account. Both phones use the SAME URL.
+8. Chrome Android menu > Install app. iPhone Safari Share > Add to Home Screen.
+
+IMPORTANT: Google popup authentication may be blocked on some iPhones or standalone PWAs, and Firebase redirect login can fail on a GitHub Pages custom domain due to browser storage restrictions. If so, sign in first in Safari or Chrome before adding to Home Screen, or use a Firebase Hosting domain with the redirect helper. Do not loosen database rules to fix sign-in.
+
+This app requires connectivity for updates. It disables writes offline to avoid conflicting changes. Once signed in, it listens for live cloud updates. Two-phone simultaneous changes are protected using Firestore transactions.
+
+If you already entered stars in the earlier local-only version, export a backup there and import it once in this cloud version. Import overwrites shared cloud data.
